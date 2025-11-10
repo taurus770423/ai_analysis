@@ -1,0 +1,45 @@
+server:
+  servlet:
+    context-path: /group-buy-dev
+
+spring:
+  application:
+    name: winmon_group_buy_backend
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://192.168.0.29:9510/group_buy_dev
+    username: postgres
+    password: P@ssw0rd
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+  security:
+    oauth2:
+      client:
+        registration:
+          line:
+            client-id: 2008445940
+            client-secret: 1ad219522d83e772662da74ede7685c7
+            scope: profile,openid,email
+            authorization-grant-type: authorization_code
+            redirect-uri: "{baseUrl}/login/oauth2/code/{registrationId}"
+            client-name: Line
+        provider:
+          line:
+            authorization-uri: https://access.line.me/oauth2/v2.1/authorize
+            token-uri: https://api.line.me/oauth2/v2.1/token
+            user-info-uri: https://api.line.me/v2/profile
+            user-name-attribute: userId
+            jwk-set-uri: https://api.line.me/oauth2/v2.1/certs
+
+jwt:
+  secret-key: YourVeryStrongAndLongSecretKeyForHS512MustBeAtLeast64BytesLongSomethingSecure
+  expiration-ms: 86400000
+
+frontend:
+  web-url: https://winmon.co/group-buy-dev
+  liff-url: https://winmon.co/group-buy-dev
