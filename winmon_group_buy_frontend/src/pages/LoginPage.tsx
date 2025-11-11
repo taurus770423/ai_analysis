@@ -1,13 +1,13 @@
 // src/pages/LoginPage.tsx
 import { useEffect } from 'react';
 import { Navigate } from 'react-router-dom';
+import liff from '@line/liff';
 import { useAuthStore } from '../store/authStore';
 import LoadingSpinner from '../components/ui/LoadingSpinner';
 import { Button } from '../components/ui/Button';
 
 const LoginPage = () => {
     const {
-        liff,
         liffError,
         isAuthenticated,
         login,

@@ -7,7 +7,8 @@ import config from './config';
 import LoadingSpinner from './components/ui/LoadingSpinner';
 
 function App() {
-    const { initializeLiff, liff, checkAuthStatus, isLoading } = useAuthStore();
+    // --- 修正 1: 移除 liff，改用 isLiffInitialized ---
+    const { initializeLiff, isLiffInitialized, checkAuthStatus, isLoading } = useAuthStore();
 
     // 1. App 啟動時，初始化 LIFF
     useEffect(() => {
@@ -16,15 +17,16 @@ function App() {
         }
     }, [initializeLiff]);
 
-    // 2. 當 LIFF 初始化完成後，檢查登入狀態
+    // --- 修正 2: 依賴從 liff 改為 isLiffInitialized ---
     useEffect(() => {
-        if (liff) {
+        if (isLiffInitialized) {
             checkAuthStatus();
         }
-    }, [liff, checkAuthStatus]);
+    }, [isLiffInitialized, checkAuthStatus]);
 
-    // 在 LIFF 初始化期間顯示全局加載
-    if (isLoading && !liff) {
+    // --- 修正 3: 判斷條件改為 !isLiffInitialized ---
+    // (在 LIFF 尚未初始化完成前，都顯示 Loading)
+    if (isLoading && !isLiffInitialized) {
         return <LoadingSpinner fullScreen={true} />
     }
 

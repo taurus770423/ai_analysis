@@ -14,18 +14,8 @@ export default defineConfig(({ mode }) => {
 
     server: {
       port: 5173, // 確保與 Nginx proxy_pass 的 5173 埠一致
-
-      // --- 修正開始 ---
-
-      // 2. 允許來自 Nginx 代理的主機名稱
-      // 告訴 Vite "winmon.co" 是一個合法的主機
       allowedHosts: ['winmon.co'],
-
-      // 3. 監聽所有 IP 位址 (包括 192.168.0.15)
-      // 這樣 Nginx 才能成功 proxy_pass 到它
       host: '0.0.0.0', // 或者 host: true
-
-      // --- 修正結束 ---
 
       // 4. 設定開發環境的 API 代理 (模擬 Nginx)
       proxy: {
@@ -35,11 +25,18 @@ export default defineConfig(({ mode }) => {
           rewrite: (path) => path.replace(/\/api/, ''),
         },
       },
+
+      // --- 修正開始 ---
       hmr: {
         host: 'winmon.co',   // 告訴 HMR client 連接到 Nginx 的主機
         protocol: 'wss',     // 使用 WSS (WebSocket Secure)
         clientPort: 443,     // Nginx 正在監聽的 HTTPS 埠 (預設 443)
+
+        // 關鍵：明確指定一個 HMR 連線路徑
+        // 這將告訴瀏覽器連線到 wss://winmon.co/vite-hmr
+        path: '/vite-hmr'
       }
+      // --- 修正結束 ---
     },
   };
 });
