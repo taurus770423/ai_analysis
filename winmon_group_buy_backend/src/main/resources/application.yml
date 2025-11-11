@@ -17,36 +17,15 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
 
-  security:
-    oauth2:
-      client:
-        registration:
-          line:
-            client-id: 2008445940
-            client-secret: 1ad219522d83e772662da74ede7685c7
-            redirect-uri: "https://winmon.co/group-buy-dev/api/login/oauth2/code/{registrationId}"
-            client-authentication-method: client_secret_post
-            authorization-grant-type: authorization_code
-            scope: profile,openid,email
-        provider:
-          line:
-            authorization-uri: https://access.line.me/oauth2/v2.1/authorize
-            token-uri: https://api.line.me/oauth2/v2.1/token
-            user-info-uri: https://api.line.me/v2/profile
-            user-name-attribute: userId
-            jwk-set-uri: https://api.line.me/oauth2/v2.1/certs
-            issuer-uri: https://access.line.me
-
-logging:
-  level:
-    org.springframework.security.oauth2: TRACE
-    com.nimbusds: TRACE
-
-jwt:
-  secret-key: YourVeryStrongAndLongSecretKeyForHS512MustBeAtLeast64BytesLongSomethingSecure
-  expiration-ms: 86400000
-
-frontend:
-  web-url: https://winmon.co/group-buy-dev
-  liff-url: https://winmon.co/group-buy-dev
+app:
+  jwt:
+    secret-key: YourVeryStrongAndLongSecretKeyForHS512MustBeAtLeast64BytesLongSomethingSecure
+    expiration-ms: 86400000
+  line:
+    channel-id: 2008445940
+  cors:
+    allowed-origins: "https://winmon.co,http://localhost:5173"

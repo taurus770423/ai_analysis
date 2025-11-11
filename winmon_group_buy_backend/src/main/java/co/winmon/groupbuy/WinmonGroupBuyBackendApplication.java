@@ -1,16 +1,15 @@
 package co.winmon.groupbuy;
 
-import org.bouncycastle.jce.provider.BouncyCastleProvider;
+import co.winmon.groupbuy.config.AppProperties;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-
-import java.security.Security;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 
 @SpringBootApplication
+@EnableConfigurationProperties(AppProperties.class)
 public class WinmonGroupBuyBackendApplication {
 
     public static void main(String[] args) {
-        Security.addProvider(new BouncyCastleProvider());
         SpringApplication.run(WinmonGroupBuyBackendApplication.class, args);
     }
 
