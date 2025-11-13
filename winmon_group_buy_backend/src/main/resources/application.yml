@@ -17,15 +17,14 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
-  mvc:
-    pathmatch:
-      matching-strategy: ant_path_matcher
+
+line:
+  login:
+    channel-id: 2008445940
+    channel-secret: e4e018ad8451a785291e8fafbe13251d
+    redirect-uri: https://winmon.co/group-buy-dev/auth/callback
 
 app:
   jwt:
     secret-key: YourVeryStrongAndLongSecretKeyForHS512MustBeAtLeast64BytesLongSomethingSecure
     expiration-ms: 86400000
-  line:
-    channel-id: 2008445940
-  cors:
-    allowed-origins: "https://winmon.co,http://localhost:5173"
